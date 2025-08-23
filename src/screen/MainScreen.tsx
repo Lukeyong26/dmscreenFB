@@ -5,7 +5,7 @@ import "react-resizable/css/styles.css";
 import { useState } from 'react';
 import ModuleMenu from '../components/modalMenu/ModuleMenu';
 import { useLayoutStore } from '../store/store';
-import { GripHorizontal, SquarePen, X, CirclePlus, Undo } from "lucide-react";
+import { GripHorizontal, SquarePen, X, CirclePlus} from "lucide-react";
 import { componentRenderer } from "../utils/componentRenderer";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
@@ -23,7 +23,7 @@ interface editMode {
 function MainScreen() {
     
   const modules = useLayoutStore(state => state.layout);
-  const prevLayout = useLayoutStore(state => state.prevLayout);
+  // const prevLayout = useLayoutStore(state => state.prevLayout);
 
   const [ModMenuStatus, setStatus] = useState<boolean>(false);
   // const [AcctMenustatus, setAcctStatus] = useState<boolean>(false);
@@ -64,9 +64,9 @@ function MainScreen() {
   //   setAcctStatus((prevStatus) => !prevStatus);
   // }
 
-  const undo =()=>{
-    setModules(prevLayout);
-  }
+  // const undo =()=>{
+  //   setModules(prevLayout);
+  // }
   
   return (
     <div className="h-full">
@@ -136,9 +136,9 @@ function MainScreen() {
             
             <CirclePlus className="text-secondary" />
           </button>
-          <button className="bg-primary hover:cursor-pointer" onClick={undo}>
+          {/* <button className="bg-primary hover:cursor-pointer" onClick={undo}>
             <Undo className="text-secondary" />
-          </button>
+          </button> */}
           {/* <button className="bg-primary" onClick={() => openAcctModal()}>
             <AccountMenu isOpen={AcctMenustatus} />
             <CircleUser className="text-secondary" />

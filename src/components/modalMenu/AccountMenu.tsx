@@ -1,34 +1,34 @@
 // import { Box, MenuItem, MenuList, Modal } from '@mui/material';
-import React, { useEffect } from 'react'
+// import React, { useEffect } from 'react'
 // import { useAuthenticator } from '@aws-amplify/ui-react';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
 // import { Hub } from 'aws-amplify/utils';
 
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'rgb(20, 23, 32)',
-  border: '2px solid #000',
-  color: 'white',
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: 'absolute',
+//   top: '50%',
+//   left: '50%',
+//   transform: 'translate(-50%, -50%)',
+//   width: 400,
+//   bgcolor: 'rgb(20, 23, 32)',
+//   border: '2px solid #000',
+//   color: 'white',
+//   boxShadow: 24,
+//   p: 4,
+// };
 
-interface AccountMenuProps {
-  isOpen : boolean;
-}
+// interface AccountMenuProps {
+//   isOpen : boolean;
+// }
 
-const AccountMenu = (props : React.PropsWithChildren<AccountMenuProps>) => {
+const AccountMenu = () => {
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  function handleLogin() {
-    navigate("/login");
-  }
+  // function handleLogin() {
+  //   navigate("/login");
+  // }
 
   // useEffect(() => {
   //   Hub.listen('auth', ({ payload }) => {

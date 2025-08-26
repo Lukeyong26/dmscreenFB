@@ -46,14 +46,22 @@ const RulesText = ({id} : {id: string}) => {
   }
 
   return (
-    <div className="mt-4 w-full">
+    <div className=" w-full min-h-full bg-gradient-to-b from-amber-100 to-amber-50 p-4">
       <div className="flex flex-col items-center w-full">
-        <h1 className="text-2xl mb-2">D&D Rules</h1>
+        <div className='flex items-center gap-2'>
+          <div className="flex justify-center items-center gap-3 mb-4">
+            <h1 className="text-2xl font-bold ">
+              📚
+            </h1>
+          </div>
+          <h1 className="text-xl mb-2 font-bold text-amber-800">D&D Rules</h1>
+        </div>
+        
         <div className=''>
           <select
             value={selection}
             onChange={changeSelection}
-            className="border border-gray-300 rounded-md p-2 text-xs overflow-hidden"
+            className="border-2 border-amber-300 rounded-md p-2 text-xs overflow-hidden text-gray-800"
             aria-label="Without label"
           >
             <option value="">
@@ -67,7 +75,7 @@ const RulesText = ({id} : {id: string}) => {
       
       </div>
       
-      <div className="flex flex-col p-4 gap-2">
+      <div className="flex flex-col p-4 gap-2 text-gray-800">
         <Markdown remarkPlugins={[remarkGfm]}>{selectedRule.desc}</Markdown>
       </div>
     </div>

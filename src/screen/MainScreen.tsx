@@ -1,7 +1,7 @@
 import { Responsive, WidthProvider } from "react-grid-layout";
 import "../assets/styles/react-grid-layout/styles.css";
 import "../assets/styles/react-resizable/styles.css";
-import "react-resizable/css/styles.css";
+
 import { useState } from 'react';
 import ModuleMenu from '../components/modalMenu/ModuleMenu';
 import { useLayoutStore } from '../store/store';
@@ -14,11 +14,6 @@ interface editMode {
   key: string;
   mode: boolean;
 }
-
-// const logLayout = () => {
-//   const layout = useLayoutStore.getState().layout;
-//   console.log(layout);
-// }
 
 function MainScreen() {
     
@@ -109,7 +104,7 @@ function MainScreen() {
                   </div>
                 </div>
                 
-                <div className="h-full w-full bg-gray-50 p-2 overflow-hidden overflow-y-scroll scrollb 
+                <div className="h-full w-full bg-gray-100 p-3 overflow-hidden overflow-y-scroll scrollb 
                   [&::-webkit-scrollbar]:w-2
                   [&::-webkit-scrollbar-track]:bg-transparent
                   [&::-webkit-scrollbar-thumb]:bg-gray-300

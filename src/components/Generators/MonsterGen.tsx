@@ -56,7 +56,7 @@ function MonsterGen() {
   const [monsters, setMonsters] = useState<MonsterResult[]>([]);
   const [cr, setCR] = useState<string>('1')
   // const [size, setSize] = useState<string>('')
-  const [mon, setMon] = useState<string>('');
+  const [mon, setMon] = useState<MonsterResult>({} as MonsterResult);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // const {data : monsters, refetch , isLoading} = useQuery({
@@ -107,7 +107,7 @@ function MonsterGen() {
       return;
     }
     const index = Math.floor(Math.random() * monsters.length);
-    setMon(monsters[index].name);
+    setMon(monsters[index]);
   }
 
   const CR = [];
@@ -116,7 +116,7 @@ function MonsterGen() {
   }
 
   return (
-    <div className="mt-4 h-full w-full">
+    <div className="w-full bg-gradient-to-b from-amber-50 to-amber-600 p-4">
       <div className="flex flex-row items-center justify-center mb-4 w-full">
         <h1 className="text-2xl">Monster Generator</h1>
       </div>
@@ -147,8 +147,24 @@ function MonsterGen() {
         <div className="animate-spin h-5 w-5 border-4 border-t-transparent rounded-full"></div>
       ) : (
         <div>
-        <span>{mon}</span>
-        </div>
+          
+          <div className="bg-white border-2 border-amber-300 rounded-xl p-4 shadow-lg max-w-md">
+            <h2 className="text-xl font-bold mb-2">{mon.name}</h2>
+            {/* <p><span className="font-semibold">Type:</span> {mon.size} {mon.type}, {mon.alignment}</p>
+            <p><span className="font-semibold">AC:</span> {mon.armor_class}</p>
+            <p><span className="font-semibold">HP:</span> {mon.hit_points} ({mon.hit_dice})</p>
+            <p><span className="font-semibold">Speed:</span> {Object.entries(mon.speed).map(([key, value]) => value ? `${key} ${value} ft.` : null).filter(Boolean).join(', ')}</p>
+            <p><span className="font-semibold">STR:</span> {mon.strength} <span className="font-semibold">DEX:</span> {mon.dexterity} <span className="font-semibold">CON:</span> {mon.constitution}</p>
+            <p><span className="font-semibold">INT:</span> {mon.intelligence} <span className="font-semibold">WIS:</span> {mon.wisdom} <span className="font-semibold">CHA:</span> {mon.charisma}</p>
+            <p><span className="font-semibold">CR:</span> {mon.challenge_rating}</p> */}
+            {mon.languages && <p><span className="font-semibold">Languages:</span> {mon.languages}</p>}
+            {mon.damage_vulnerabilities && <p><span className="font-semibold">Damage Vulnerabilities:</span> {mon.damage_vulnerabilities}</p>}
+            {mon.damage_resistances && <p><span className="font-semibold">Damage Resistances:</span> {mon.damage_resistances}</p>}
+            {mon.damage_immunities && <p><span className="font-semibold">Damage Immunities:</span> {mon.damage_immunities}</p>}
+            {mon.condition_immunities && <p><span className="font-semibold">Condition Immunities:</span> {mon.condition_immunities}</p>}
+          </div>
+          
+      </div>
       )}
       </div>
     </div>

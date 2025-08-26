@@ -1,12 +1,14 @@
-import { useEffect, useState, type SetStateAction } from 'react'
+import { useEffect, useState } from 'react'
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { X } from 'lucide-react'; 
 
-const spellLevels = ['1','2','3','4','5','6','7','8','9']
+const spellLevels = ['0','1','2','3','4','5','6','7','8','9']
 
 interface SpellListData {
   index:string;
   name:string;
+  level:number;
 }
 
 interface SpellData {
@@ -18,6 +20,7 @@ interface SpellData {
   casting_time:string;
   level:number;
   higher_level:string;
+  desc:string[];
 }
 
 const initialSpell = {
@@ -28,15 +31,17 @@ const initialSpell = {
   concentration:false,
   casting_time:'',
   level:0,
-  higher_level:''
+  higher_level:'',
+  desc:[]
 }
 
 function SpellsList() {
     const [spells, setSpells] = useState<SpellListData[]>([]);
-    const [selection, setSelection] = useState<string>('')
+    const [displayedSpells, setDisplayedSpells] = useState<SpellListData[]>(spells);
+    const [level, setLevel] = useState<string>('')
     const [selectedSpell, setSelectedSpell] = useState<SpellData>(initialSpell)
-    const [spellDesc, setSpellDesc] = useState([])
     const [isSpellOpen, setIsSpellOpen] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
   
     const ruleURL = "https://www.dnd5eapi.co/api/spells";
     
@@ -46,25 +51,16 @@ function SpellsList() {
           .then((data) => {
             // console.log(data.results);
             setSpells(data.results);
+            setDisplayedSpells(data.results);
           })
           .catch((err) => {
             console.log(err.message);
           });
     }, []);
-  
-    const changeSelection = (event: { target: { value: SetStateAction<string>; }; }) => {
-      setSelection(event.target.value);
-      const URL = event.target.value === "" ? ruleURL : ruleURL + "?level=" + event.target.value
-      fetch(URL)
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data);
-          setSpells(data.results);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    };
+
+    useEffect(() => {
+      applyFilters();
+    }, [level, searchTerm]);
 
     const openSpell = (spell : string) => {
       setIsSpellOpen(true);
@@ -74,29 +70,56 @@ function SpellsList() {
         .then((data) => {
           // console.log(data);
           setSelectedSpell(data);
-          setSpellDesc(data.desc)
         })
         .catch((err) => {
           console.log(err.message);
         });
     };
 
+    const applyFilters = () => {
+      let filteredSpells = spells;
+      if (level !== '' && level !== 'all') {
+        filteredSpells = filteredSpells.filter((spell) => spell.level.toString() === level);
+      }
+      if (searchTerm !== '') {
+        filteredSpells = filteredSpells.filter((spell) => spell.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      }
+      setDisplayedSpells(filteredSpells);
+    }
+
     const closeSpell = () => {
       setIsSpellOpen(false);
     }
   
     return (
-      <div className="mt-4">
-        <div className="flex flex-row">
-          <h1 className="text-2xl">Spells List</h1>
-          <div className="flex flex-row items-center ml-auto mt-1">
+      <div className="w-full min-h-full bg-gradient-to-bl from-blue-800 to-blue-950 p-4">
+        <div className="flex flex-row items-center p-2">
+          <div className="flex">
+            <h1 className="text-2xl font-bold ">
+              📜
+            </h1>
+          </div>
+          <h1 className="text-2xl text-yellow-400 ">Spells</h1>
+          <div className="flex flex-row items-center ml-auto mt-1 text-white">
+            {/* search bar */}
+            <div className='p-2'>
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                }}
+                placeholder="Search"
+                className="border border-gray-300 text-white rounded-md p-2 text-xs bg-gray-500"
+              />
+            </div>
             <p>Level: </p>
             <select
-              value={selection}
-              onChange={changeSelection}
-              className="min-w-10 text-secondary border-1 border-gray-300 bg-primary text-sm ml-2 rounded-sm"
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+              className="min-w-10 text-secondary border-1 hover:cursor-pointer bg-gray-500 border-gray-300 bg-primary text-sm ml-2 rounded-sm"
             >
-              <option value="">
+              <option value="all">
                 <em>All</em>
               </option>
               {spellLevels.map((lvl) => (
@@ -104,14 +127,16 @@ function SpellsList() {
               ))}
             </select>
           </div>
+          
         </div>
-        <div className='p-4'>
+        
+        <div className='p-4 text-white'>
           {!isSpellOpen ? 
             <ul className="list-none">
-              {spells.map((spell) => (
+              {displayedSpells.map((spell) => (
                 <li key={spell.index} className="py-1">
                   <button onClick={() => openSpell(spell.index)} className="w-full text-left">
-                {spell.name}
+                    {spell.name}
                   </button>
                 </li>
               ))}
@@ -120,12 +145,12 @@ function SpellsList() {
             <div>
               <div className="flex flex-row items-center mb-2">
                 <h2 className="text-xl">{selectedSpell.name}</h2>
-                <button className="ml-auto" onClick={closeSpell}>
-                  X
+                <button className="ml-auto hover:cursor-pointer" onClick={closeSpell}>
+                  <X size={18} />
                 </button>
               </div>
               <h3>Description:</h3>
-              {spellDesc.map((text, index) => (
+              {selectedSpell.desc.map((text, index) => (
                 <div key={index} className="markdown">
                   <Markdown remarkPlugins={[remarkGfm]}>
                     {text}

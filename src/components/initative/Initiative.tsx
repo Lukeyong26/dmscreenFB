@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Responsive, WidthProvider } from 'react-grid-layout'
 import { useLayoutState } from '../../utils/useLayoutState';
-import { UserRound } from 'lucide-react'
+import { UserRound, Sword, Shield, Plus, RotateCcw, ChevronRight, X, GripVertical } from 'lucide-react'
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -86,54 +86,112 @@ const Initiative = ({id}:{id: string}) => {
     setPlayers(newLayout);
   }
   return (
-    <div className="m-1">
+    <div className="bg-gradient-to-b from-amber-50 to-amber-100 p-4 h-full min-h-80 items-center justify-center">
+      <div className="text-center mb-2">
+        <div className="flex justify-center items-center gap-3">
+          <Sword className="text-amber-700" size={20} />
+          <h1 className="text-xl font-bold text-amber-800">
+            Initiative Tracker
+          </h1>
+          <Shield className="text-amber-700" size={20} />
+        </div>
+      </div>    
       <ResponsiveGridLayout
-      className="layout"
-      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-      cols={{ lg: state.players?.length, md: state.players?.length, sm: state.players?.length, xs: state.players?.length, xxs: state.players?.length }}
-      margin={[5,5]} compactType={'horizontal'} maxRows={1} rowHeight={140}
-      onLayoutChange={updateLayout} isResizable={false} draggableHandle='.drag-handle-card'
+        className="layout"
+        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+        cols={{ lg: state.players?.length, md: state.players?.length, sm: state.players?.length, xs: state.players?.length, xxs: state.players?.length }}
+        margin={[5,5]} compactType={'horizontal'} maxRows={1} rowHeight={160}
+        onLayoutChange={updateLayout} isResizable={false} draggableHandle='.drag-handle-card'
       >
       {state.players?.map((player) => (
         <div
           key={player.key}
           data-grid={{x: player.x, y: player.y, w: 1, h: 1}}
-          className="border-1 border-gray-300 rounded-lg h-full"
+          className={`rounded-xl shadow-md transition-all duration-300 cursor-move h-full
+            ${player.turn ? 
+            'bg-gradient-to-br from-green-100 to-green-200 border-2 border-green-400 shadow-green-200 ' 
+            : 
+            'bg-gradient-to-br from-white to-amber-50 border-2 border-amber-200 hover:border-amber-300'}`
+          }
         >
-          <div className="flex flex-col h-full items-center">
+          <div className="flex flex-col items-center drag-handle-card ">
             <div className="ml-auto mx-2">
               {state.players?.length > 1 &&
-                <button className="" onClick={() => deletePlayer(player.key)}>
-                  <span className="text-xs">X</span>
+              <>
+                <div className="absolute top-2 left-2 text-amber-400">
+                    <GripVertical size={16} />
+                </div>
+                <button 
+                  className="mt-1 w-4 h-4 bg-red-500 hover:bg-red-600 hover:cursor-pointer text-white rounded-full flex items-center justify-center text-xs transition-colors z-10"
+                  onClick={() => deletePlayer(player.key)}
+                >
+                  <X size={12} />
                 </button>
+              </>
               }
             </div>
 
-            <div className='drag-handle-card flex w-full items-center justify-center hover:cursor-grab'>
-              <span className="mb-1"><UserRound size={64} /></span>
+            <div className="flex flex-col items-center">
+              {/* Avatar */}
+              <div className="p-2">
+                <div className={`p-4 rounded-full transition-colors ${
+                  player.turn 
+                    ? 'bg-green-200 text-green-700' 
+                    : 'bg-amber-100 text-amber-700'
+                }`}>
+                  <UserRound size={40} />
+                </div>
+              </div>
+
+              
             </div>
+          </div>
+          {/* Player Name Input */}
+          <div className='px-2'>
             <input 
               type="text" 
-              className="text-center text-sm mt-auto w-full rounded bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={player.name} onChange={(e) => updatePlayerName(e.target.value, player.key)}
+              className="text-center text-sm font-medium w-full px-3 py-2 rounded-lg border border-amber-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+              value={player.name} 
+              onChange={(e) => updatePlayerName(e.target.value, player.key)}
+              placeholder="Player Name"
             />
-            {player.turn ? 
-              <div className="w-full h-5 mt-auto bg-green-400 rounded-lg"/>
-              :
-              <div className="w-full h-5 mt-auto"/>
-            }
           </div>
         </div>
       ))}
-      
       </ResponsiveGridLayout>
 
-      <div className="flex flex-row gap-4 mt-2">
-        <button className="text-secondary border border-gray-300 rounded p-2" onClick={addPlayer}>Add Player</button>
-        <button className="text-secondary border border-gray-300 rounded p-2" onClick={resetInitiative}>Reset Initiative</button>
-        <button className="text-secondary border border-gray-300 rounded p-2 ml-auto" onClick={nextPlayer}>Next Player</button>
+      {/* Control Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 mt-4 text-sm">
+        <button 
+          className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
+          onClick={addPlayer}
+        >
+          <Plus size={18} />
+          Add Player
+        </button>
+        
+        <button 
+          className="bg-gray-600 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
+          onClick={resetInitiative}
+        >
+          <RotateCcw size={18} />
+          Reset Initiative
+        </button>
+        
+        <button 
+          className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
+          onClick={nextPlayer}
+        >
+          Next Turn
+          <ChevronRight size={18} />
+        </button>
       </div>
-      
+      {/* Instructions */}
+      <div className="mt-2 text-center">
+        <p className="text-xs text-amber-600 font-light">
+          Drag player cards to reorder initiative • Current player highlighted in green
+        </p>
+      </div>
     </div>
   )
 }

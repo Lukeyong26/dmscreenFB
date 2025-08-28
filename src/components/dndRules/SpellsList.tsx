@@ -92,14 +92,14 @@ function SpellsList() {
     }
   
     return (
-      <div className="w-full min-h-full bg-gradient-to-bl from-blue-800 to-blue-950 p-4">
+      <div className="w-full min-h-full bg-gradient-to-bl from-gray-200 to-gray-50 p-4">
         <div className="flex flex-row items-center p-2">
           <div className="flex">
             <h1 className="text-2xl font-bold ">
               📜
             </h1>
           </div>
-          <h1 className="text-2xl text-yellow-400 ">Spells</h1>
+          <h1 className="text-2xl text-gray-800 ">Spells</h1>
           <div className="flex flex-row items-center ml-auto mt-1 text-white">
             {/* search bar */}
             <div className='p-2'>
@@ -113,7 +113,7 @@ function SpellsList() {
                 className="border border-gray-300 text-white rounded-md p-2 text-xs bg-gray-500"
               />
             </div>
-            <p>Level: </p>
+            <p className='text-gray-800'>Level: </p>
             <select
               value={level}
               onChange={(e) => setLevel(e.target.value)}
@@ -130,9 +130,9 @@ function SpellsList() {
           
         </div>
         
-        <div className='p-4 text-white'>
+        <div className='p-4 text-gray-800'>
           {!isSpellOpen ? 
-            <ul className="list-none">
+            <ul className="list-none font-semibold">
               {displayedSpells.map((spell) => (
                 <li key={spell.index} className="py-1">
                   <button onClick={() => openSpell(spell.index)} className="w-full text-left">
@@ -144,7 +144,7 @@ function SpellsList() {
             : 
             <div>
               <div className="flex flex-row items-center mb-2">
-                <h2 className="text-xl">{selectedSpell.name}</h2>
+                <h2 className="text-xl font-semibold">{selectedSpell.name}</h2>
                 <button className="ml-auto hover:cursor-pointer" onClick={closeSpell}>
                   <X size={18} />
                 </button>

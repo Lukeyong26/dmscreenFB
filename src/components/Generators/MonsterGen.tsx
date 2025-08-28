@@ -116,7 +116,7 @@ function MonsterGen() {
   }
 
   return (
-    <div className="w-full bg-gradient-to-b from-amber-50 to-amber-600 p-4">
+    <div className="w-full h-full bg-gradient-to-b from-gray-200 to-gray-50 p-4">
       <div className="flex flex-row items-center justify-center mb-4 w-full">
         <h1 className="text-2xl">Monster Generator</h1>
       </div>
@@ -148,7 +148,7 @@ function MonsterGen() {
       ) : (
         <div>
           
-          <div className="bg-white border-2 border-amber-300 rounded-xl p-4 shadow-lg max-w-md">
+          <div className="bg-white border-2 border-gray-300 rounded-xl p-4 shadow-lg max-w-md">
             <h2 className="text-xl font-bold mb-2">{mon.name}</h2>
             {/* <p><span className="font-semibold">Type:</span> {mon.size} {mon.type}, {mon.alignment}</p>
             <p><span className="font-semibold">AC:</span> {mon.armor_class}</p>

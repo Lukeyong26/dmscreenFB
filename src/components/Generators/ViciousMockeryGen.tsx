@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Angry } from 'lucide-react';
+import { Angry, LoaderCircle } from 'lucide-react';
 
 interface InsultParts {
   adjectives: string[];
@@ -100,32 +100,29 @@ const ViciousMockeryGen: React.FC = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b min-h-full from-red-200 to-red-400 p-8">
+    <div className="bg-gradient-to-b min-h-full from-gray-200 to-gray-50 p-8">
       <div className="max-w-2xl mx-auto">
         
         {/* Title */}
         <div className="text-center mb-4">
           <div className="flex justify-center items-center gap-3 mb-4">
-            <Angry className="text-red-700" size={20} />
+            <Angry className="text-red-700" size={28} />
             <h1 className="text-xl font-bold text-red-800">
               Vicious Mockery Generator
             </h1>
-            <Angry className="text-red-700" size={20} />
+            <Angry className="text-red-700" size={28} />
           </div>
         </div>
 
         {/* Insult Display */}
-        <div className="bg-white border-2 border-red-200 rounded-xl p-8 shadow-lg flex items-center justify-center">
+        <div className="bg-white border-2 border-red-800 rounded-xl p-8 shadow-lg flex items-center justify-center">
           {isGenerating ? (
             <div className="text-center">
-              <div className="animate-spin text-4xl mb-4">⚔️</div>
-              <p className="text-amber-800 font-light italic">
-                Crafting the perfect insult...
-              </p>
+              <div className="animate-spin text-4xl mb-4"><LoaderCircle/></div>
             </div>
           ) : currentInsult ? (
             <div className="text-center">
-              <blockquote className="text-xl text-amber-900 font-medium leading-relaxed italic border-l-4 border-amber-300 pl-4">
+              <blockquote className="text-xl text-amber-900 font-medium leading-relaxed italic border-l-4 border-red-800 pl-4">
                 "{currentInsult}"
               </blockquote>
             </div>
@@ -149,14 +146,6 @@ const ViciousMockeryGen: React.FC = () => {
             {isGenerating ? 'Conjuring Insult...' : 'Generate Insult'}
           </button>
         </div>
-
-        {/* Disclaimer */}
-        <div className="mt-4 text-center">
-          <p className="text-xs text-red-800 font-light">
-            For entertainment purposes only. Use responsibly at your gaming table! 🎲
-          </p>
-        </div>
-
       </div>
     </div>
   );

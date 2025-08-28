@@ -120,7 +120,7 @@ function MainScreen() {
         </div>
       }
       <div className="fixed bottom-0 p-4">
-        <div className="flex flex-col bg-gray-400 rounded-3xl p-2 gap-4">
+        <div className="flex flex-col bg-gray-200 border-2 border-white rounded-3xl p-2 gap-4">
           <button className="bg-primary hover:cursor-pointer" onClick={() => openModMenu("")}>
             <div className={!ModMenuStatus ? `hidden`: ``}>
               <ModuleMenu

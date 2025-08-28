@@ -86,16 +86,17 @@ const Initiative = ({id}:{id: string}) => {
     setPlayers(newLayout);
   }
   return (
-    <div className="bg-gradient-to-b from-amber-50 to-amber-100 p-4 h-full min-h-80 items-center justify-center">
+    <div className="bg-gradient-to-b from-gray-200 to-gray-50 p-4 h-full min-h-80 items-center justify-center">
       <div className="text-center mb-2">
         <div className="flex justify-center items-center gap-3">
-          <Sword className="text-amber-700" size={20} />
-          <h1 className="text-xl font-bold text-amber-800">
+          <Sword className="text-gray-700" size={20} />
+          <h1 className="text-xl font-bold text-gray-600">
             Initiative Tracker
           </h1>
-          <Shield className="text-amber-700" size={20} />
+          <Shield className="text-gray-700" size={20} />
         </div>
-      </div>    
+      </div>   
+
       <ResponsiveGridLayout
         className="layout"
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
@@ -111,18 +112,18 @@ const Initiative = ({id}:{id: string}) => {
             ${player.turn ? 
             'bg-gradient-to-br from-green-100 to-green-200 border-2 border-green-400 shadow-green-200 ' 
             : 
-            'bg-gradient-to-br from-white to-amber-50 border-2 border-amber-200 hover:border-amber-300'}`
+            'bg-gradient-to-br from-white to-gray-50 border-2 border-gray-400 hover:border-gray-300'}`
           }
         >
           <div className="flex flex-col items-center drag-handle-card ">
             <div className="ml-auto mx-2">
               {state.players?.length > 1 &&
               <>
-                <div className="absolute top-2 left-2 text-amber-400">
-                    <GripVertical size={16} />
+                <div className="absolute top-2 left-2 text-gray-400">
+                  <GripVertical size={16} />
                 </div>
                 <button 
-                  className="mt-1 w-4 h-4 bg-red-500 hover:bg-red-600 hover:cursor-pointer text-white rounded-full flex items-center justify-center text-xs transition-colors z-10"
+                  className="mt-1 w-4 h-4 text-gray-500 hover:text-red-600 hover:cursor-pointer flex items-center justify-center text-sm transition-colors z-10"
                   onClick={() => deletePlayer(player.key)}
                 >
                   <X size={12} />
@@ -137,7 +138,7 @@ const Initiative = ({id}:{id: string}) => {
                 <div className={`p-4 rounded-full transition-colors ${
                   player.turn 
                     ? 'bg-green-200 text-green-700' 
-                    : 'bg-amber-100 text-amber-700'
+                    : 'bg-gray-100 text-gray-700'
                 }`}>
                   <UserRound size={40} />
                 </div>
@@ -150,7 +151,7 @@ const Initiative = ({id}:{id: string}) => {
           <div className='px-2'>
             <input 
               type="text" 
-              className="text-center text-sm font-medium w-full px-3 py-2 rounded-lg border border-amber-200 bg-white/80 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all"
+              className="text-center text-sm font-medium w-full px-3 py-2 rounded-lg border border-gray-400 bg-white/80 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-transparent transition-all"
               value={player.name} 
               onChange={(e) => updatePlayerName(e.target.value, player.key)}
               placeholder="Player Name"
@@ -163,7 +164,7 @@ const Initiative = ({id}:{id: string}) => {
       {/* Control Buttons */}
       <div className="flex flex-wrap justify-center gap-4 mt-4 text-sm">
         <button 
-          className="bg-amber-600 hover:bg-amber-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
+          className="bg-gray-600 hover:bg-amber-400 hover:cursor-pointer text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
           onClick={addPlayer}
         >
           <Plus size={18} />
@@ -171,7 +172,7 @@ const Initiative = ({id}:{id: string}) => {
         </button>
         
         <button 
-          className="bg-gray-600 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
+          className="bg-gray-600 hover:bg-red-700 hover:cursor-pointer text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
           onClick={resetInitiative}
         >
           <RotateCcw size={18} />
@@ -179,18 +180,12 @@ const Initiative = ({id}:{id: string}) => {
         </button>
         
         <button 
-          className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
+          className="bg-green-600 hover:bg-green-700 hover:cursor-pointer text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 flex items-center gap-2"
           onClick={nextPlayer}
         >
           Next Turn
           <ChevronRight size={18} />
         </button>
-      </div>
-      {/* Instructions */}
-      <div className="mt-2 text-center">
-        <p className="text-xs text-amber-600 font-light">
-          Drag player cards to reorder initiative • Current player highlighted in green
-        </p>
       </div>
     </div>
   )

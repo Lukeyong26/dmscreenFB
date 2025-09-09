@@ -28,7 +28,7 @@ A customizable virtual dungeon master screen built with React, Vite, and TypeScr
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd dnd-virtual-dm-screen
+cd dndscreenFB
 ```
 
 2. Install dependencies:
